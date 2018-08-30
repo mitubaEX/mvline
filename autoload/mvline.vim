@@ -14,21 +14,22 @@ function! mvline#findLineNumberOfContainKeywordLine(l, c, str)
   let allContent = getline(a:l, '$')
 
   let count = 0
+  let columnCount = 0
   let findFlag = 0
 
   for con in allContent
-    let part = strpart(con, cMinus, 1)
-
-    " check same char
-    if a:str == part
-      let findFlag = 1
-      return [count, findFlag]
-    endif
+    for t in range(0, len(con))
+      if a:str == con[t]
+        let findFlag = 1
+        let columnCount = t + 1
+        return [count, columnCount, findFlag]
+      endif
+    endfor
 
     let count += 1
   endfor
 
-  return [count, findFlag]
+  return [count, cMinus, findFlag]
 endfunction
 
 function! mvline#mvline()
@@ -50,9 +51,9 @@ function! mvline#mvline()
   let l = l + 1
 
   let lineNumber = mvline#findLineNumberOfContainKeywordLine(l, c, chr)
-  if lineNumber[1]
+  if lineNumber[2]
     let mvLineNumber = lineNumber[0] + l
-    call cursor(mvLineNumber, c)
+    call cursor(mvLineNumber, lineNumber[1])
   endif
 endfunction
 
