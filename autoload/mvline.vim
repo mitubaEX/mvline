@@ -34,15 +34,7 @@ endfunction
 
 function! mvline#mvline()
 
-  while 1
-    let chr = getchar(0)
-    if !empty(chr)
-      break
-    endif
-    sleep 20m
-  endwhile
-
-  let chr = nr2char(chr)
+  let chr = nr2char(getchar())
 
   " get current lineNumber and columnNumber
   let l = line('.')
