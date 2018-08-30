@@ -1,6 +1,6 @@
 # mvline
 
-This is vim plugin for finding files vertically.
+This is vertical f of vim.
 
 ## install
 
@@ -11,5 +11,5 @@ NeoBundle 'mitubaEX/mvline.vim'
 ## Usage
 
 ```
-:call mvline#mvline('<keyword>')
+z <your wanted char of move position>
 ```
