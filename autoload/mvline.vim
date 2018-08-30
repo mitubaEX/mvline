@@ -31,13 +31,25 @@ function! mvline#findLineNumberOfContainKeywordLine(l, c, str)
   return [count, findFlag]
 endfunction
 
-function! mvline#mvline(str)
+function! mvline#mvline()
+
+  while 1
+    let chr = getchar(0)
+    if !empty(chr)
+      break
+    endif
+    sleep 20m
+  endwhile
+
+  let chr = nr2char(chr)
 
   " get current lineNumber and columnNumber
   let l = line('.')
   let c = col('.')
 
-  let lineNumber = mvline#findLineNumberOfContainKeywordLine(l, c, a:str)
+  let l = l + 1
+
+  let lineNumber = mvline#findLineNumberOfContainKeywordLine(l, c, chr)
   if lineNumber[1]
     let mvLineNumber = lineNumber[0] + l
     call cursor(mvLineNumber, c)
